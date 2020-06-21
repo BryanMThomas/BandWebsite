@@ -1,11 +1,11 @@
 @import url("https://fonts.googleapis.com/css?family=Raleway:300,400");
 @import url("https://fonts.googleapis.com/css?family=Sriracha");
 @font-face {
-    font-family: "DreamersBrush";
-    src: url(Fonts/DREAMERSBRUSH.woff) format("woff"),
+  font-family: "DreamersBrush";
+  src: url(Fonts/DREAMERSBRUSH.woff) format("woff"),
     url(Fonts/DREAMERSBRUSH.woff2) format("woff2");
-    font-weight: normal;
-    font-style: normal;
+  font-weight: normal;
+  font-style: normal;
 }
 * {
   box-sizing: border-box;
@@ -13,7 +13,8 @@
   color: #777;
 }
 
-html,body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -55,61 +56,142 @@ html,body {
   padding-bottom: 30px;
 }
 
-.band-name{
-    text-align: center;
-    margin:0;
-    font-family: "DreamersBrush";
-    font-size: 5em;
-    font-weight: normal;
+.band-name {
+  text-align: center;
+  margin: 0;
+  font-family: "DreamersBrush";
+  font-size: 5em;
+  font-weight: normal;
+  color: white;
+}
+.band-name-large {
+  font-size: 8em;
+}
+
+.content-section {
+  margin: 1em;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2em;
+}
+
+.section-header {
+  font-family: "Sriracha";
+  font-weight: normal;
+  color: #333;
+  text-align: center;
+  font-size: 2.8em;
+}
+
+.about-band-image {
+  float: right;
+  height: 200px;
+  width: 200px;
+  margin: 12px;
+  border-radius: 50%;
+}
+
+.main-footer {
+  background-color: #777;
+  color: white;
+  padding: 0.3em;
+}
+.main-footer-container {
+  display: flex;
+  align-items: center;
+}
+.main-footer-container ul {
+  flex-grow: 1;
+  text-align: end;
+}
+.footer-nav li {
+  padding: 0 0.8em;
+}
+
+.footer-nav img {
+  height: 80px;
+}
+
+.btn {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.66em;
+  cursor: pointer;
+}
+
+.btn-header {
+  margin: .5em 35% 2em 35%;
+  color: white;
+  border: 3px solid teal;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0;
+  font-size: 1.3em;
+  font-weight: lighter;
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+.btn-header:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-play {
+  display: block;
+  margin: 0 auto;
+  color: teal;
+  font-size: 4em;
+  border-radius: 50%;
+  padding: 0em .3em;
+  width: 100px;
+  height: 100px;
+}
+
+.tour-row {
+  border-bottom: 1px solid black;
+  padding-bottom: 1em;
+  margin: 1em;
+}
+
+.tour-row:last-child {
+  border-bottom: none;
+}
+
+.tour-item {
+  display: inline-block;
+  padding-right: 0.5em;
+}
+
+.tour-date {
+  color: #555;
+  font-weight: bold;
+  width: 25%;
+}
+
+.tour-city {
+  width: 20%;
+}
+
+.tour-location {
+  width: 35%;
+}
+
+.tour-button {
+  max-width: 25%;
+  height: 3em;
+}
+
+.button-primary{
     color:white;
-}
-.band-name-large{
-    font-size: 8em;
-}
-
-.content-section{
-    margin: 1em;
+    background-color: teal;
+    border:none;
+    border-radius: .3em;
+    font-weight: bold;
 }
 
-.container{
-    max-width: 1200px;
-    margin:0 auto;
-    padding: 0 2em;
-}
-
-.section-header{
-    font-family: "Sriracha";
-    font-weight: normal;
-    color: #333;
-    text-align: center;
-    font-size: 2.8em;
-}
-
-.about-band-image{
-    float: right;
-    height: 200px;
-    width: 200px;
-    margin: 12px;
-    border-radius: 50%;
-}
-
-.main-footer{
-    background-color: #777;
-    color: white;
-    padding: .30em;
-}
-.main-footer-container{
-    display: flex;
-    align-items: center;
-}
-.main-footer-container ul{
-    flex-grow: 1;
-    text-align: end;
-}
-.footer-nav li{
-    padding: 0 .8em;
-}
-
-.footer-nav img{
-    height: 80px;
+.button-primary:hover{
+    background-color: gray;
+    cursor: pointer;
 }
