@@ -14,12 +14,14 @@ function ready() {
   function addToCartClicked(event) {
     var button = event.target;
     var shopItem = button.parentElement.parentElement;
+    //grab all Item Details
     var clickedItemTitle = shopItem.getElementsByClassName("shop-item-title")[0]
       .innerText;
     var clickedItemPrice = shopItem.getElementsByClassName("shop-item-price")[0]
       .innerText;
     var clickedItemSrc = shopItem.getElementsByClassName("shop-item-img")[0]
       .src;
+    //using details add item to cart
     addItemToCart(clickedItemTitle, clickedItemPrice, clickedItemSrc);
     updateCartTotal();
   }
@@ -69,10 +71,11 @@ function ready() {
 
   function quantityChanged() {
     var input = event.target;
-
+    //when negative or empty set to 1
     if (input.value < 0 || input.value.length == 0) {
       input.value = 1;
     } else if (input.value == 0) {
+      //if set to 0 remove from cart
       removeCartItem(event);
     }
     updateCartTotal();
@@ -88,6 +91,7 @@ function ready() {
     var cartTotal = 0;
     var cartItemContainer = document.getElementsByClassName("cart-items")[0];
     var cartRows = cartItemContainer.getElementsByClassName("cart-row");
+    //increment through each item in the cart
     for (var index = 0; index < cartRows.length; index++) {
       var cartRow = cartRows[index];
       var priceElement = cartRow.getElementsByClassName("cart-price-value")[0];
@@ -96,8 +100,10 @@ function ready() {
       )[0];
       var price = parseFloat(priceElement.innerText.replace("$", ""));
       var quantity = parseInt(quantityElement.value);
+      //calculate new total
       cartTotal = cartTotal + price * quantity;
     }
+    //round cart total to USD currency format of $###.00
     cartTotal = Math.round(cartTotal * 100) / 100;
     document.getElementsByClassName("cart-total-price")[0].innerText =
       "$" + cartTotal;
@@ -110,22 +116,22 @@ function ready() {
     var cartHeader = document.createElement("div");
     cartHeader.classList.add("cart-row", "cart-header");
     var cartHeaderContent = `
-    <span class = "cart-item cart-header cart-column">ITEM</span>
-    <span class = "cart-price cart-header cart-column">PRICE</span>
-    <span class = "cart-quantity cart-header cart-column">QUANTITY</span>`;
+      <span class = "cart-item cart-header cart-column">ITEM</span>
+      <span class = "cart-price cart-header cart-column">PRICE</span>
+      <span class = "cart-quantity cart-header cart-column">QUANTITY</span>`;
     cartHeader.innerHTML = cartHeaderContent;
     cartSection.insertBefore(
       cartHeader,
       document.getElementsByClassName("cart-items")[0]
     );
 
-    //Initiate Purchase Button and Total
+    //Initiate Total and Purchase Button
     var cartTotal = document.createElement("div");
     cartTotal.classList.add("cart-total");
     var cartTotalContent = `
-    <span class = "cart-total-title">Total</strong>
-    <span class = "cart-total-price">$0</span>
-    <button class= "button button-primary button-purchase" role="button">PURCHASE</button>`;
+      <span class = "cart-total-title">Total</strong>
+      <span class = "cart-total-price">$0</span>
+      <button class= "button button-primary button-purchase" role="button">PURCHASE</button>`;
     cartTotal.innerHTML = cartTotalContent;
     cartSection.append(cartTotal);
     document
@@ -135,6 +141,7 @@ function ready() {
 
   function purchaseClicked() {
     alert("Thank you for your purchase");
+    //clear cart
     removeElementsByClass("cart-header");
     DeleteAllCartItems();
     removeElementsByClass("cart-total");
@@ -156,10 +163,12 @@ function ready() {
     }
   }
 
-  function incrementInputValue(className, index =0){
-    var value = parseInt(document.getElementsByClassName(className)[index].value, 10);
-          value = isNaN(value) ? 0 : value;
-          value++;
-          document.getElementsByClassName(className)[index].value = value;
+  function incrementInputValue(className, index = 0) {
+    var value = parseInt(
+      document.getElementsByClassName(className)[index].value,
+      10
+    );
+    value = isNaN(value) ? 0 : value; //input validation
+    document.getElementsByClassName(className)[index].value = ++value;
   }
 }
