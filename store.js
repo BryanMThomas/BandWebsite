@@ -22,10 +22,6 @@ function ready() {
     button.addEventListener("click", addToCartClicked);
   }
 
-  document
-    .getElementsByClassName("button-purchase")[0]
-    .addEventListener("click", purchaseClicked);
-
   function addToCartClicked(event) {
     var button = event.target;
     var shopItem = button.parentElement.parentElement;
@@ -40,16 +36,47 @@ function ready() {
   }
 
   function addItemToCart(shopItemTitle, shopItemPrice, shopItemImgSrc) {
-    var cartRow = document.createElement("div");
-    cartRow.classList.add("cart-row");
     var cartItems = document.getElementsByClassName("cart-items")[0];
     var cartNames = cartItems.getElementsByClassName("cart-item-title");
+    console.log(cartNames.length);
+    var emptyCart = cartNames.length == 0;
+    if(emptyCart){
+        removeElementsByClass("empty-cart");
+        var cartSection = document.getElementsByClassName("cart-section")[0];
+        console.log("empty cart");
+        //Initiate cart headers
+        var cartHeader = document.createElement("div");
+        cartHeader.classList.add("cart-row","cart-header");
+        var cartHeaderContent = `
+        <span class = "cart-item cart-header cart-column">ITEM</span>
+        <span class = "cart-price cart-header cart-column">PRICE</span>
+        <span class = "cart-quantity cart-header cart-column">QUANTITY</span>`;
+        cartHeader.innerHTML = cartHeaderContent;
+        cartSection.insertBefore(cartHeader,cartItems);
+
+        //Initiate Purchase Button and Total 
+        var cartTotal = document.createElement("div");
+        cartTotal.classList.add("cart-total");
+        var cartTotalContent = `
+        <span class = "cart-total-title">Total</strong>
+        <span class = "cart-total-price">$0</span>
+        <button class= "button button-primary button-purchase" role="button">PURCHASE</button>`;
+        cartTotal.innerHTML = cartTotalContent;
+        cartSection.append(cartTotal);
+        document
+        .getElementsByClassName("button-purchase")[0]
+        .addEventListener("click", purchaseClicked);
+        cartItems = document.getElementsByClassName("cart-items")[0];
+    }
+
     for (index = 0; index < cartNames.length; index++) {
       if (cartNames[index].innerText == shopItemTitle) {
         alert("This item is already added to the cart");
         return;
       }
     }
+    var cartRow = document.createElement("div");
+    cartRow.classList.add("cart-row");
     var cartRowContents = `
       <div class = "cart-item cart-column">
         <img class ="cart-item-img" src="${shopItemImgSrc}" width="100" height="100" />
@@ -108,7 +135,10 @@ function ready() {
 
   function purchaseClicked() {
     alert("Thank you for your purchase");
+    removeElementsByClass("cart-header");
     DeleteAllCartItems();
+    removeElementsByClass("cart-total");
+    removeElementsByClass("button-purchase");
   }
 
   function DeleteAllCartItems() {
@@ -118,4 +148,11 @@ function ready() {
     }
     updateCartTotal();
   }
+
+  function removeElementsByClass(className){
+    var elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+}
 }
