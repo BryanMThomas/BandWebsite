@@ -84,7 +84,25 @@ function ready() {
   function removeCartItem(event) {
     var buttonClicked = event.target;
     buttonClicked.parentElement.parentElement.remove();
-    updateCartTotal();
+    //check if cart is now empty
+    var cartItems = document.getElementsByClassName("cart-items")[0];
+    var cartItemTitles = cartItems.getElementsByClassName("cart-item-title");
+    console.log(cartItemTitles.length);
+    if (cartItemTitles.length == 0) {
+      //set empty cart
+      emptyCartContent = '<span class = "empty-cart">Your Cart Is Empty</span>';
+      var cartRow = document.createElement("div");
+      cartRow.classList.add("cart-row");
+      cartRow.innerHTML = emptyCartContent;
+      cartItems.append(cartRow);
+      removeElementsByClass("cart-header");
+      removeElementsByClass("cart-total");
+      removeElementsByClass("button-purchase");
+    }
+    else{
+      updateCartTotal();
+    }
+
   }
 
   function updateCartTotal() {
