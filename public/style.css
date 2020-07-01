@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css?family=Sriracha");
 @font-face {
   font-family: "DreamersBrush";
-  src: url(Fonts/DREAMERSBRUSH.woff) format("woff"),
-    url(Fonts/DREAMERSBRUSH.woff2) format("woff2");
+  src: url(fonts/DREAMERSBRUSH.woff) format("woff"),
+    url(fonts/DREAMERSBRUSH.woff2) format("woff2");
   font-weight: normal;
   font-style: normal;
 }
