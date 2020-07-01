@@ -4,14 +4,18 @@
     <title>Dreamers | Store</title>
     <meta name="description" content="This is the description" />
     <link rel="stylesheet" href="style.css" />
-    <script src = "store.js" async></script>
+    <script src="https://checkout.stripe.com/checkout.js" defer></script>
+    <script src="store.js" defer></script>
+    <script>
+      var stripePublicKey = "<%= stripePublicKey%>";
+    </script>
   </head>
   <body>
     <header class="main-header">
       <nav class="nav main-nav">
         <ul>
           <li><a href="index.html">HOME</a></li>
-          <li><a href="store.html">STORE</a></li>
+          <li><a href="store">STORE</a></li>
           <li><a href="about.html">ABOUT</a></li>
         </ul>
       </nav>
@@ -20,53 +24,41 @@
     <section class="container content-section">
       <h2 class="section-header">MUSIC</h2>
       <div class="shop-items">
-        <div class="shop-item">
-          <span class="shop-item-title">Album 1</span>
-          <img class="shop-item-img" src="images/Album1.jpg" />
+        <% items.music.forEach(function(item){ %>
+        <div class="shop-item" data-item-id="<%= item.id%>">
+          <span class="shop-item-title"><%= item.name%></span>
+          <img class="shop-item-img" src="images/<%= item.imgName%>" />
           <div class="shop-item-details">
-            <span class="shop-item-price">$14.99</span>
-            <button class="button button-primary shop-item-button" type="button">ADD TO CART</button>
-          </div>
-        </div>
-        <div class="shop-item">
-          <span class="shop-item-title">Album 2</span>
-          <img class="shop-item-img" src="images/Album2.jpg" />
-          <div class="shop-item-details">
-            <span class="shop-item-price">$13.99</span>
-            <button class="button button-primary shop-item-button" type="button">
+            <span class="shop-item-price">$<%= item.price/100%></span>
+            <button
+              class="button button-primary shop-item-button"
+              type="button"
+            >
               ADD TO CART
             </button>
           </div>
         </div>
-        <div class="shop-item">
-          <span class="shop-item-title">Album 3</span>
-          <img class="shop-item-img" src="images/Album3.jpg" />
-          <div class="shop-item-details">
-            <span class="shop-item-price">$12.99</span>
-            <button class="button button-primary shop-item-button" type="button">ADD TO CART</button>
-          </div>
-        </div>
+        <% }) %>
       </div>
     </section>
     <section class="container content-section">
       <h2 class="section-header">MERCH</h2>
       <div class="shop-items">
-        <div class="shop-item">
-          <span class="shop-item-title">T-Shirt 1</span>
-          <img class="shop-item-img" src="images/TShirt1.jpg" />
+        <% items.merch.forEach(function(item){ %>
+        <div class="shop-item" data-item-id="<%= item.id%>">
+          <span class="shop-item-title"><%= item.name%></span>
+          <img class="shop-item-img" src="images/<%= item.imgName%>" />
           <div class="shop-item-details">
-            <span class="shop-item-price">$19.99</span>
-            <button class="button button-primary shop-item-button" type="button">ADD TO CART</button>
+            <span class="shop-item-price">$<%= item.price/100%></span>
+            <button
+              class="button button-primary shop-item-button"
+              type="button"
+            >
+              ADD TO CART
+            </button>
           </div>
         </div>
-        <div class="shop-item">
-          <span class="shop-item-title">T-Shirt 2</span>
-          <img class="shop-item-img" src="images/TShirt2.jpg" />
-          <div class="shop-item-details">
-            <span class="shop-item-price">$18.99</span>
-            <button class="button button-primary shop-item-button" type="button">ADD TO CART</button>
-          </div>
-        </div>
+        <% }) %>
       </div>
     </section>
     <section class = "container content-section cart-section">
