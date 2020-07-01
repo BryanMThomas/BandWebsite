@@ -21,12 +21,23 @@ function ready() {
       .innerText;
     var clickedItemSrc = shopItem.getElementsByClassName("shop-item-img")[0]
       .src;
+    var clickedItemId = shopItem.dataset.itemId;
     //using details add item to cart
-    addItemToCart(clickedItemTitle, clickedItemPrice, clickedItemSrc);
+    addItemToCart(
+      clickedItemTitle,
+      clickedItemPrice,
+      clickedItemSrc,
+      clickedItemId
+    );
     updateCartTotal();
   }
 
-  function addItemToCart(shopItemTitle, shopItemPrice, shopItemImgSrc) {
+  function addItemToCart(
+    shopItemTitle,
+    shopItemPrice,
+    shopItemImgSrc,
+    shopItemId
+  ) {
     var cartItems = document.getElementsByClassName("cart-items")[0];
     var cartItemTitles = cartItems.getElementsByClassName("cart-item-title");
     //check if cart is empty
@@ -48,6 +59,7 @@ function ready() {
     //create new item in cart
     var cartRow = document.createElement("div");
     cartRow.classList.add("cart-row");
+    cartRow.dataset.itemId = shopItemId;
     var cartRowContents = `
       <div class = "cart-item cart-column">
         <img class ="cart-item-img" src="${shopItemImgSrc}" width="100" height="100" />
@@ -87,8 +99,7 @@ function ready() {
     //check if cart is now empty
     if (document.getElementsByClassName("cart-item-title").length == 0) {
       setEmptyCart();
-    }
-    else{
+    } else {
       updateCartTotal();
     }
   }
@@ -145,11 +156,59 @@ function ready() {
       .addEventListener("click", purchaseClicked);
   }
 
+  var stripeHandler = StripeCheckout.configure({
+    key: stripePublicKey,
+    locale: "en",
+    token: function (token) {
+      //get all items in cart
+      var cartItems = [];
+      var cartItemContainer = document.getElementsByClassName("cart-items")[0];
+      var cartRows = cartItemContainer.getElementsByClassName("cart-row");
+      for (var i = 0; i < cartRows.length; i++) {
+        var currentCartRow = cartRows[i];
+        var rowQuantity = currentCartRow.getElementsByClassName(
+          "cart-quantity-input"
+        )[0].value;
+        var rowId = currentCartRow.dataset.itemId;
+        cartItems.push({
+          id: rowId,
+          quantity: rowQuantity,
+        });
+      }
+      console.log(token.id + "token");
+      //make purchase call with items in cart
+      fetch("/purchase", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          stripeTokenId: token.id,
+          items: cartItems,
+        }),
+      })
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          alert(data.message);
+          //clear cart
+          DeleteAllCartItems();
+          setEmptyCart();
+        })
+        .catch(function (error) {
+          console.error(error);
+        });
+    },
+  });
+
   function purchaseClicked() {
-    alert("Thank you for your purchase");
-    //clear cart
-    DeleteAllCartItems();
-    setEmptyCart();
+    var priceElement = document.getElementsByClassName("cart-total-price")[0];
+    var price = parseFloat(priceElement.innerText.replace("$", "")) * 100;
+    stripeHandler.open({
+      amount: price,
+    });
   }
 
   function DeleteAllCartItems() {
@@ -160,7 +219,7 @@ function ready() {
     updateCartTotal();
   }
 
-  function setEmptyCart(){
+  function setEmptyCart() {
     var cartItems = document.getElementsByClassName("cart-items")[0];
     //set empty cart
     emptyCartContent = '<span class = "empty-cart">Your Cart Is Empty</span>';

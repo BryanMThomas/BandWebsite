@@ -55,13 +55,13 @@ router.post("/purchase", function (req, res) {
       const itemsArray = itemsJson.music.concat(itemsJson.merch);
       //calculate total for cart
       let total = 0;
+      console.log("Total being calculated");
       req.body.items.forEach(function (item) {
         const foundItem = itemsArray.find(function (i) {
           return i.id == item.id;
         });
-        total = total + foundItem.price * foundItem.quantity;
+        total = total + foundItem.price * item.quantity;
       });
-
       //Create new Stripe charge
       stripe.charges
         .create({
@@ -70,6 +70,7 @@ router.post("/purchase", function (req, res) {
           currency: "usd",
         })
         .then(function () {
+          console.log("Charge Succesful");
           res.json({ message: "Succesfully Purchased Items" });
         })
         .catch(function () {
