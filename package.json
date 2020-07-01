@@ -1,0 +1,27 @@
+{
+  "name": "bandwebsite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "store.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BryanMThomas/BandWebsite.git"
+  },
+  "author": "Bryan Thomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BryanMThomas/BandWebsite/issues"
+  },
+  "homepage": "https://github.com/BryanMThomas/BandWebsite#readme",
+  "dependencies": {
+    "ejs": "^3.1.3",
+    "express": "^4.17.1",
+    "stripe": "^8.67.0"
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
