@@ -43,6 +43,43 @@ router.get("/about", function (req, res) {
   res.sendFile(path.join(__dirname + "/public/about.html"));
 });
 
+//post function for processing payments
+
+router.post("/purchase", function (req, res) {
+  fs.readFile("items.json", function (error, data) {
+    if (error) {
+      res.status(500).end();
+    } else {
+      //parse items sent from cart
+      const itemsJson = JSON.parse(data);
+      const itemsArray = itemsJson.music.concat(itemsJson.merch);
+      //calculate total for cart
+      let total = 0;
+      req.body.items.forEach(function (item) {
+        const foundItem = itemsArray.find(function (i) {
+          return i.id == item.id;
+        });
+        total = total + foundItem.price * foundItem.quantity;
+      });
+
+      //Create new Stripe charge
+      stripe.charges
+        .create({
+          amount: total,
+          source: req.body.stripeTokenId,
+          currency: "usd",
+        })
+        .then(function () {
+          res.json({ message: "Succesfully Purchased Items" });
+        })
+        .catch(function () {
+          console.log("Charge Failed");
+          res.status(500).end();
+        });
+    }
+  });
+});
+
 app.use("/", router);
 app.listen(port);
 console.log("Server Running at Port " + port + "...");
