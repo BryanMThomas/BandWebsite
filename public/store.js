@@ -156,7 +156,11 @@ function ready() {
       .addEventListener("click", purchaseClicked);
   }
 
-  var stripeHandler = StripeCheckout.configure({
+  function purchaseClicked() {
+    purchaseHandler.open();
+  }
+
+  var purchaseHandler = StripeCheckout.configure({
     key: stripePublicKey,
     locale: "en",
     token: function (token) {
@@ -204,14 +208,6 @@ function ready() {
         });
     },
   });
-
-  function purchaseClicked() {
-    var priceElement = document.getElementsByClassName("cart-total-price")[0];
-    var price = parseFloat(priceElement.innerText.replace("$", "")) * 100;
-    stripeHandler.open({
-      amount: price,
-    });
-  }
 
   function DeleteAllCartItems() {
     var cartItems = document.getElementsByClassName("cart-items")[0];
