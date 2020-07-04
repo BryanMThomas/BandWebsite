@@ -222,7 +222,7 @@ function ready() {
   function setEmptyCart() {
     var cartItems = document.getElementsByClassName("cart-items")[0];
     //set empty cart
-    emptyCartContent = '<span class = "empty-cart">Your Cart Is Empty</span>';
+    emptyCartContent = '<span class = "empty-cart" id="empty-cart">Your Cart Is Empty</span>';
     var cartRow = document.createElement("div");
     cartRow.classList.add("cart-row");
     cartRow.innerHTML = emptyCartContent;
