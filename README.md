@@ -14,7 +14,8 @@ Stripe Checkout API - Integrated with Stripe Checkout API to process payments fo
 POST: /purchase 
 Purpose:Processed Payments using Stripe API
 Example Body
-{  "stripeTokenId":"tok_123456abcedefg",
+{  
+   "stripeTokenId":"tok_123456abcedefg",
    "items":[
       {
          "id":"4",
