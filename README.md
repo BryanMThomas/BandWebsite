@@ -13,16 +13,16 @@ Stripe Checkout API - Integrated with Stripe Checkout API to process payments fo
 
 ### Store
 
-![Empty Cart](/readme-resources/Site_Store_EmptyCart.png)
+![Empty Cart](/readme-resources/Site_Store_EmptyCart.PNG)
 
 
-![Populated Cart](/readme-resources/Cart_Populated.png)
+![Populated Cart](/readme-resources/Cart_Populated.PNG)
 
 
-![Cart Payment](/readme-resources/Cart_Payment.png)
+![Cart Payment](/readme-resources/Cart_Payment.PNG)
  
  ### Home
-![Cart Payment](/readme-resources/Site_Index.png)
+![Cart Payment](/readme-resources/Site_Index.PNG)
 
  ### About
-![Cart Payment](/readme-resources/Site_About.png)
+![Cart Payment](/readme-resources/Site_About.PNG)
