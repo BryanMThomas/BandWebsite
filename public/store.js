@@ -164,6 +164,7 @@ function ready() {
       var cartItems = [];
       var cartItemContainer = document.getElementsByClassName("cart-items")[0];
       var cartRows = cartItemContainer.getElementsByClassName("cart-row");
+      //for each item in the cart create a entry in the request body
       for (var i = 0; i < cartRows.length; i++) {
         var currentCartRow = cartRows[i];
         var rowQuantity = currentCartRow.getElementsByClassName(
@@ -175,7 +176,6 @@ function ready() {
           quantity: rowQuantity,
         });
       }
-      console.log(token.id + "token");
       //make purchase call with items in cart
       fetch("/purchase", {
         method: "POST",
@@ -192,12 +192,14 @@ function ready() {
           return res.json();
         })
         .then(function (data) {
-          alert(data.message);
-          //clear cart
+          //clear cart after purchase
           DeleteAllCartItems();
           setEmptyCart();
+          //alert successful purchase
+          alert(data.message);
         })
         .catch(function (error) {
+          //log out any errors
           console.error(error);
         });
     },
