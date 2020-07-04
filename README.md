@@ -9,6 +9,32 @@ Node JS Web Server - Created a basic web server to handle GET requests to surfac
 
 Stripe Checkout API - Integrated with Stripe Checkout API to process payments for purchases made from the cart. Used Public and Private Keys in order to make secure calls to my stripe account.
 
+### Route Implemented 
+```
+POST: /purchase 
+Purpose:Processed Payments using Stripe API
+Example Body
+{  "stripeTokenId":"tok_123456abcedefg",
+   "items":[
+      {
+         "id":"4",
+         "quantity":"2"
+      },
+      {
+         "id":"2",
+         "quantity":"1"
+      },
+      {
+         "id":"5",
+         "quantity":"1"
+      }
+   ]
+}
+
+Example Response
+{message: "Succesfully Purchased Items"}
+```
+
 ## Images
 
 ### Store
