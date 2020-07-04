@@ -3,6 +3,7 @@ if (document.readyState == "loading") {
 } else {
   ready();
 }
+
 function ready() {
   //add click listeners to all Add To Cart Buttons
   var addToCartButtons = document.getElementsByClassName("shop-item-button");
@@ -40,15 +41,16 @@ function ready() {
   ) {
     var cartItems = document.getElementsByClassName("cart-items")[0];
     var cartItemTitles = cartItems.getElementsByClassName("cart-item-title");
+    var itemIndex = cartItemTitles.length;
     //check if cart is empty
     if (cartItemTitles.length == 0) {
       updateEmptyCart();
       cartItems = document.getElementsByClassName("cart-items")[0];
     } else {
-      //if not empty check if itme is already in the cart
+      //if not empty check if item is already in the cart
       for (index = 0; index < cartItemTitles.length; index++) {
         if (cartItemTitles[index].innerText == shopItemTitle) {
-          //incremement input value
+          //increment input value
           incrementInputValue("cart-quantity-input");
           //updateTotal
           updateCartTotal();
@@ -61,14 +63,14 @@ function ready() {
     cartRow.classList.add("cart-row");
     cartRow.dataset.itemId = shopItemId;
     var cartRowContents = `
-      <div class = "cart-item cart-column">
-        <img class ="cart-item-img" src="${shopItemImgSrc}" width="100" height="100" />
-        <span class = "cart-item-title">${shopItemTitle}</span>
+      <div class = "cart-item cart-column" id = "cart-item-${itemIndex}">
+        <img class ="cart-item-img" id = "cart-item-img-${itemIndex}" src="${shopItemImgSrc}" width="100" height="100" />
+        <span class = "cart-item-title" id = "cart-item-title-${itemIndex}">${shopItemTitle}</span>
       </div>
-      <span class = "cart-price cart-price-value cart-column">${shopItemPrice}</span>
+      <span class = "cart-price cart-price-value cart-column" id = "cart-item-price-${itemIndex}"}">${shopItemPrice}</span>
       <div class = "cart-quantity cart-column">
-        <input class = "cart-quantity-input" type="number" value="1" />
-        <button class = "button button-danger" role="button">REMOVE</button>
+        <input class = "cart-quantity-input" id = "cart-item-quantity-${itemIndex}" type="number" value="1" />
+        <button class = "button button-danger" id = "cart-item-button-${itemIndex}" role="button">REMOVE</button>
       </div>`;
     cartRow.innerHTML = cartRowContents;
     cartItems.append(cartRow);
@@ -147,7 +149,7 @@ function ready() {
     cartTotal.classList.add("cart-total");
     var cartTotalContent = `
       <span class = "cart-total-title">Total</strong>
-      <span class = "cart-total-price">$0</span>
+      <span class = "cart-total-price" id = "cart-total-price">$0</span>
       <button class= "button button-primary button-purchase" role="button">PURCHASE</button>`;
     cartTotal.innerHTML = cartTotalContent;
     cartSection.append(cartTotal);
@@ -182,16 +184,16 @@ function ready() {
       }
       //make purchase call with items in cart
       fetch("/purchase", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          stripeTokenId: token.id,
-          items: cartItems,
-        }),
-      })
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            stripeTokenId: token.id,
+            items: cartItems,
+          }),
+        })
         .then(function (res) {
           return res.json();
         })

@@ -1,96 +1,90 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Dreamers | Store</title>
-    <meta name="description" content="This is the description" />
-    <link rel="stylesheet" href="style.css" />
-    <script src="https://checkout.stripe.com/checkout.js" defer></script>
-    <script src="store.js" defer></script>
-    <script>
-      var stripePublicKey = "<%= stripePublicKey%>";
-    </script>
-  </head>
-  <body>
-    <header class="main-header">
-      <nav class="nav main-nav">
-        <ul>
-          <li><a href="/">HOME</a></li>
-          <li><a href="store">STORE</a></li>
-          <li><a href="about">ABOUT</a></li>
-        </ul>
-      </nav>
-      <h1 class="band-name band-name-large">Dreamers</h1>
-    </header>
-    <section class="container content-section">
-      <h2 class="section-header">MUSIC</h2>
-      <div class="shop-items">
-        <% items.music.forEach(function(item){ %>
-        <div class="shop-item" data-item-id="<%= item.id%>">
-          <span class="shop-item-title"><%= item.name%></span>
-          <img class="shop-item-img" src="images/<%= item.imgName%>" />
-          <div class="shop-item-details">
-            <span class="shop-item-price">$<%= item.price/100%></span>
-            <button
-              class="button button-primary shop-item-button"
-              type="button"
-            >
-              ADD TO CART
-            </button>
-          </div>
+
+<head>
+  <title>Dreamers | Store</title>
+  <meta name="description" content="This is the description" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://checkout.stripe.com/checkout.js" defer></script>
+  <script src="store.js" defer></script>
+  <script>
+    var stripePublicKey = "<%= stripePublicKey%>";
+  </script>
+</head>
+
+<body>
+  <header class="main-header">
+    <nav class="nav main-nav">
+      <ul>
+        <li><a href="/">HOME</a></li>
+        <li><a href="store">STORE</a></li>
+        <li><a href="about">ABOUT</a></li>
+      </ul>
+    </nav>
+    <h1 class="band-name band-name-large">Dreamers</h1>
+  </header>
+  <section class="container content-section">
+    <h2 class="section-header" id="music-header">MUSIC</h2>
+    <div class="shop-items">
+      <% items.music.forEach(function(item){ %>
+      <div class="shop-item" data-item-id="<%= item.id%>" id="shop-item-<%= item.id%>">
+        <span class="shop-item-title" id="shop-item-title-<%= item.id%>"><%= item.name%></span>
+        <img class="shop-item-img" id="shop-item-img-<%= item.id%>" src="images/<%= item.imgName%>" />
+        <div class="shop-item-details" id="shop-item-details-<%= item.id%>">
+          <span class="shop-item-price" id="shop-item-price-<%= item.id%>">$<%= item.price/100%></span>
+          <button class="button button-primary shop-item-button" type="button" id="shop-item-button-<%= item.id%>">
+            ADD TO CART
+          </button>
         </div>
-        <% }) %>
       </div>
-    </section>
-    <section class="container content-section">
-      <h2 class="section-header">MERCH</h2>
-      <div class="shop-items">
-        <% items.merch.forEach(function(item){ %>
-        <div class="shop-item" data-item-id="<%= item.id%>">
-          <span class="shop-item-title"><%= item.name%></span>
-          <img class="shop-item-img" src="images/<%= item.imgName%>" />
-          <div class="shop-item-details">
-            <span class="shop-item-price">$<%= item.price/100%></span>
-            <button
-              class="button button-primary shop-item-button"
-              type="button"
-            >
-              ADD TO CART
-            </button>
-          </div>
+      <% }) %>
+    </div>
+  </section>
+  <section class="container content-section">
+    <h2 class="section-header" id="merch-header">MERCH</h2>
+    <div class="shop-items">
+      <% items.merch.forEach(function(item){ %>
+      <div class="shop-item" data-item-id="<%= item.id%>" id="shop-item-<%= item.id%>">
+        <span class="shop-item-title" id="shop-item-title-<%= item.id%>"><%= item.name%></span>
+        <img class="shop-item-img" id="shop-item-img-<%= item.id%>" src="images/<%= item.imgName%>" />
+        <div class="shop-item-details" id="shop-item-details-<%= item.id%>">
+          <span class="shop-item-price" id="shop-item-price-<%= item.id%>">$<%= item.price/100%></span>
+          <button class="button button-primary shop-item-button" type="button" id="shop-item-button-<%= item.id%>">
+            ADD TO CART
+          </button>
         </div>
-        <% }) %>
       </div>
-    </section>
-    <section class = "container content-section cart-section">
-      <h2 class="section-header">CART</h2>
-      <div class = "cart-items">
-        <span class = "empty-cart">Your Cart Is Empty</span>
-      </div> 
-    </section>
-    <footer class="main-footer">
-      <div class="container main-footer-container">
-        <a class="band-name" href="index.html">Dreamers</a>
-        <ul class="nav footer-nav">
-          <li>
-            <a
-              href="https://www.youtube.com/user/DREAMERSjoinus"
-              target="_blank"
-            >
-              <img src="images/youtubeLogo.png" />
-            </a>
-          </li>
-          <li>
-            <a href="https://open.spotify.com" target="_blank">
-              <img src="images/spotifyLogo.png" />
-            </a>
-          </li>
-          <li>
-            <a href="https://www.facebook.com/DREAMERSuniverse" target="_blank">
-              <img src="images/facebookLogo.png" />
-            </a>
-          </li>
-        </ul>
-      </div>
-    </footer>
-  </body>
+      <% }) %>
+    </div>
+  </section>
+  <section class="container content-section cart-section">
+    <h2 class="section-header" id="cart-header" >CART</h2>
+    <div class="cart-items">
+      <span class="empty-cart" id = "empty-cart">Your Cart Is Empty</span>
+    </div>
+  </section>
+  <footer class="main-footer" id = "footer">
+    <div class="container main-footer-container">
+      <a class="band-name" href="index.html">Dreamers</a>
+      <ul class="nav footer-nav">
+        <li>
+          <a href="https://www.youtube.com/user/DREAMERSjoinus" target="_blank">
+            <img src="images/youtubeLogo.png" />
+          </a>
+        </li>
+        <li>
+          <a href="https://open.spotify.com" target="_blank">
+            <img src="images/spotifyLogo.png" />
+          </a>
+        </li>
+        <li>
+          <a href="https://www.facebook.com/DREAMERSuniverse" target="_blank">
+            <img src="images/facebookLogo.png" />
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+</body>
+
 </html>
