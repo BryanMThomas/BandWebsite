@@ -1,6 +1,8 @@
 //Verify Environment
 if (process.env.NODE_ENV !== "production") {
-  require("dotenv").config({ path: ".env" });
+  require("dotenv").config({
+    path: ".env"
+  });
 }
 let port = 3000;
 const fs = require("fs");
@@ -71,7 +73,9 @@ router.post("/purchase", function (req, res) {
         })
         .then(function () {
           console.log("Charge Succesful");
-          res.json({ message: "Succesfully Purchased Items" });
+          res.json({
+            message: "Succesfully Purchased Items"
+          });
         })
         .catch(function () {
           console.log("Charge Failed");
