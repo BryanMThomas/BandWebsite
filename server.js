@@ -72,9 +72,9 @@ router.post("/purchase", function (req, res) {
           currency: "usd",
         })
         .then(function () {
-          console.log("Charge Succesful");
+          console.log("Charge Successful");
           res.json({
-            message: "Succesfully Purchased Items"
+            message: "Successfully Purchased Items"
           });
         })
         .catch(function () {
